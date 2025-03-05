@@ -14,7 +14,7 @@ function MedicationList({ addMedication }) {
 
 
   
-  // Fetch medications
+ 
   const fetchMedications = useCallback(async () => {
     setLoading(true);
    
@@ -23,7 +23,7 @@ function MedicationList({ addMedication }) {
       const storedUser = localStorage.getItem("user");
       const token = localStorage.getItem("token");
   
-      // 🔴 If either `user` or `token` is missing, ask user to log in again
+      
       if (!storedUser || !token) {
         setLoading(false);
         localStorage.removeItem("user");
@@ -31,7 +31,7 @@ function MedicationList({ addMedication }) {
         return;
       }
   
-      // 🔹 Parse the user JSON
+     
       let user;
       try {
         user = JSON.parse(storedUser);
@@ -41,7 +41,7 @@ function MedicationList({ addMedication }) {
         return;
       }
   
-      // 🔴 Validate User Data
+     
       if (!user) {
         toast.error("Invalid user session.");
         localStorage.removeItem("user");
@@ -49,9 +49,8 @@ function MedicationList({ addMedication }) {
         setLoading(false);
         return;
       }
-  
-      // ✅ Fetch Medications
-      const response = await axios.get("http://localhost:5000/api/medications", {
+
+      const response = await axios.get("https://medicine-reminder-backend.onrender.com/api/medications", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -88,7 +87,6 @@ function MedicationList({ addMedication }) {
       return;
     }
 
-    // Show confirmation before deleting
     toast(
       (t) => (
         <div className="flex flex-col items-center">
@@ -122,8 +120,7 @@ function MedicationList({ addMedication }) {
   };
 
   const confirmDelete = async (id) => {
-    const token = localStorage.getItem("token"); // Retrieve token
-  
+    const token = localStorage.getItem("token"); 
     if (!token) {
       toast.error("Authentication failed. Please log in again.");
       return;
@@ -131,10 +128,10 @@ function MedicationList({ addMedication }) {
   
     try {
       const response = await axios.delete(
-        `http://localhost:5000/api/medications/${id}`,
+        `https://medicine-reminder-backend.onrender.com/api/medications/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Send token for authentication
+            Authorization: `Bearer ${token}`, 
           },
         }
       );
@@ -237,7 +234,7 @@ function MedicationList({ addMedication }) {
                            animate={{ opacity: 1, y: 0 }}
                            exit={{ opacity: 0, x: -10 }}
                            transition={{ duration: 0.3 }}
-                           whileHover={{ scale: 1.05 }}  // ✅ Framer Motion hover scaling
+                           whileHover={{ scale: 1.05 }} 
                            className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
                          >
                            <td className="px-6 py-4">

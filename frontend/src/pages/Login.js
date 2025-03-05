@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const Login = ({ setAuth }) => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -18,7 +19,7 @@ const Login = ({ setAuth }) => {
     setLoading(true);
     
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch("https://medicine-reminder-backend.onrender.com/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -119,12 +120,12 @@ const Login = ({ setAuth }) => {
 
         <p className="text-center text-sm mt-4 text-gray-600 dark:text-gray-300">
           Don't have an account?{" "}
-          <a
-            href="signup"
-            className="text-[#4299E1] hover:text-[#2B6CB0] ml-1 transition-colors duration-300"
-          >
-            Sign Up
-          </a>
+          <Link
+  to="/signup"
+  className="text-[#4299E1] hover:text-[#2B6CB0] ml-1 transition-colors duration-300"
+>
+  Sign Up
+</Link>
         </p>
       </div>
     </form>

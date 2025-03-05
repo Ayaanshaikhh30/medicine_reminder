@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, {Toaster} from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
-
+import { Link } from "react-router-dom";
 const Signup = () => {
   const [formData, setFormData] = useState({ name: "", email: "", password: "", otp: "" });
   const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ const Signup = () => {
     }
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/auth/send-otp", {
+      const response = await fetch("https://medicine-reminder-backend.onrender.com/api/auth/send-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: formData.email, name: formData.name }),
@@ -51,14 +51,14 @@ const Signup = () => {
     
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/auth/verify-otp", {  // Correct API for OTP verification
+      const response = await fetch("https://medicine-reminder-backend.onrender.com/api/auth/verify-otp", {  // Correct API for OTP verification
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: formData.email,
           name: formData.name,
           otp: formData.otp,
-          password: formData.password,  // Send password for account creation
+          password: formData.password, 
         }),
       });
   
@@ -187,12 +187,12 @@ const Signup = () => {
         </button>
         <p className="text-center text-sm mt-4 text-gray-600 dark:text-gray-300">
             Already have an account?{" "}
-            <a
-              href="/login"
+            <Link
+              to="/login"
               className="text-[#4299E1] hover:text-[#2B6CB0] ml-1 transition-colors duration-300"
             >
               Sign In
-            </a>
+            </Link>
           </p>
       </div>
     </form>
